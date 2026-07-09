@@ -32,4 +32,50 @@ function findCoffee() {
         }
     }
 }
-//
+//cart js
+var cart = localStorage.getItem("cart") || "";
+var total = Number(localStorage.getItem("total")) || 0;
+
+
+function addCart(name, price){
+    cart += name + "," + price + "|";
+    total += price;
+
+    localStorage.setItem("cart", cart);
+    localStorage.setItem("total", total);
+    showCart();
+}
+function showCart(){
+    var items = cart.split("|");
+    var output = "";
+
+    for(var i = 0; i < items.length - 1; i++){
+        var item = items[i].split(",");
+        output += item[0] + " - MKW " + item[1];
+        output += " <button onclick='removeCart(" + i + ")'>Remove</button><br>";
+    }
+
+    if(output == ""){
+        output = "Cart is empty";
+        total = 0;
+        localStorage.setItem("total", 0);
+    }
+    document.getElementById("cart").innerHTML = output;
+    document.getElementById("total").innerHTML = "MKW " + total;
+}
+function removeCart(index){
+    var items = cart.split("|");
+    var price = items[index].split(",")[1];
+
+    total -= Number(price);
+    items.splice(index, 1);
+    cart = items.join("|");
+
+    if(cart == ""){
+        total = 0;
+    }
+    localStorage.setItem("cart", cart);
+    localStorage.setItem("total", total);
+    showCart();
+}
+showCart();

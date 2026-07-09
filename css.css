@@ -119,3 +119,7 @@ body{
     height: 200px;
     object-fit: fit;
 }
+/*cart*/
+.cart-title{
+    margin-top: 70px;
+}
