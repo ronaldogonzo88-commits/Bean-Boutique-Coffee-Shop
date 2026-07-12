@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Offers</title>
+    <link rel="stylesheet" href="css.css">
+</head>
+<body>
+    <header>
+        <nav class="navigation"> <!--navigation bar-->
+            <h1>
+                <a href="Index.html">Home</a>
+                <a href="coffee-selection.html">Coffee selection</a>
+                <a href="Brewing-equipment.html">Brewing Equipment</a>
+                <a href="Shopping-cart.html">Shopping Cart</a>
+                <a href="Events-&-workshop.html">Events & Workshops</a>
+                <a href="Special-offers.html">Special Offers</a>
+            </h1>
+        </nav>
+    </header>
+    
+    <main>
+        <section class="subcription"> <!--subscription section-->
+            <h2 class="sub-heading">Pick your perfect coffee plan</h2>
+
+            <div class="card-container"><!--tier-container-->
+                <div class="sub-card"><!--tier-card-->
+                    <h3>Starter Plan</h3>
+                    <p>Price: MKW 15,000</p>
+                    <p>per month</p>
+                    <ul>
+                        <li>1 Bag Monthly</li>
+                        <li>Free Standard Shipping</li>
+                        <li>Cancel Anytime</li>
+                    </ul>
+                    <button onclick="addCart('Starter Plan',1500)">Add to Cart</button>
+                </div>
+
+                <div class="sub-card"><!--tier-card-->
+                    <h3>Pro Barista</h3>
+                    <p>Price: MKW 40,000</p>
+                    <p>per month</p>
+                    <ul>
+                        <li>3 Bags Monthly</li>
+                        <li>Free Signature Mug</li>
+                        <li>Priority Roasting Access</li>
+                    </ul>
+                    <button onclick="addCart('Pro Barista',40000)">Add to Cart</button>
+                </div>
+
+                <div class="sub-card"><!--tier-card-->
+                    <h3>Wholesale Tier</h3>
+                    <p>Price: MKW 120,000</p>
+                    <p>per month</p>
+                    <ul>
+                        <li>10 Bags Monthly</li>
+                        <li>Wholesale Price per Bag</li>
+                        <li>Custom Grind Selection</li>
+                    </ul>
+                    <button onclick="addCart('Wholesale Tier',120000)">Add to Cart</button>
+                </div>
+            
+            </div>
+        </section>
+    </main>
+    
+    <footer class="footer"> <!---here is the footer-->
+        <p>Bean Botique Coffee Shop</p>
+        <p><a href="tel:+265888342079">Call Now</a></p>
+        <p><a href="ronaldogonzo88@gmail.com">Email Here</a></p>
+        <p>Follow us on Facebook and Instagram</p>
+        <p>&copy; 2026 Bean Boutique</p>
+    </footer>
+    <script src="js.js"></script>
+</body>
+</html>

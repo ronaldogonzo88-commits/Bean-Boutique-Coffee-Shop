@@ -1,25 +1,36 @@
-//This is the pop up fuction which makes pop up once page has loaded
+// This is the pop up function which makes pop up once page has loaded
 window.onload = function(){
-    document.getElementById("Popup-box").style.display = "block";
+    let popup = document.getElementById("Popup-box");
+    if(popup){
+        popup.style.display = "block";
+    }
 }
-//This one closes the pop up
+// This one closes the pop up 
 function closePopup(){
-    document.getElementById("Popup-box").style.display = "none";
+    let popup = document.getElementById("Popup-box");
+    if(popup){
+        popup.style.display = "none";
+    }
 }
-//This function is for sign up on the pop up message
+// This function is for sign up on the pop up message
 function SignUp(){
     alert("Thank you for signing up: ");
     closePopup();
 }
-//this one is slideshow function
+// This one is slideshow function on index
 let slides = document.querySelectorAll(".slide-show img");
-let i = 0;
-setInterval(() => {
-    slides[i].style.display = "none";
-    i = (i + 1) % slides.length;
-    slides[i].style.display = "block";
-},3000);
-//this one is for coffee selection used for search bar 
+ 
+if (slides.length > 0){
+    let i = 0;
+    slides[0].style.display = "block";
+
+    setInterval(() => {
+        slides[i].style.display = "none";
+        i = (i + 1) % slides.length;
+        slides[i].style.display = "block";
+    }, 3000);
+}
+// This one is for coffee selection used for search bar 
 function findCoffee() {
     let search = document.getElementById("search").value.toLowerCase();
     let coffee = document.getElementsByClassName("coffee1");
@@ -32,50 +43,92 @@ function findCoffee() {
         }
     }
 }
-//cart js
+//Adding to cart js, For storage
 var cart = localStorage.getItem("cart") || "";
 var total = Number(localStorage.getItem("total")) || 0;
 
-
 function addCart(name, price){
+    console.log("Button clicked", name, price);
+    
+    // Add the name of item and price
     cart += name + "," + price + "|";
     total += price;
 
     localStorage.setItem("cart", cart);
     localStorage.setItem("total", total);
+    alert(name + "has been aaded to cart");
+    
+    setTimeout(function(){
+        textNotice.style.display = "none";
+    },1500);
+    
     showCart();
 }
+
 function showCart(){
-    var items = cart.split("|");
+    var currentCart = localStorage.getItem("cart") || ""; 
+    var items = currentCart.split("|");
     var output = "";
 
-    for(var i = 0; i < items.length - 1; i++){
+    if(items[items.length - 1] === "") {
+        items.pop();
+    }
+
+    for(var i = 0; i < items.length; i++){
         var item = items[i].split(",");
         output += item[0] + " - MKW " + item[1];
         output += " <button onclick='removeCart(" + i + ")'>Remove</button><br>";
     }
 
-    if(output == ""){
+    if(output == "" || items.length === 0){
         output = "Cart is empty";
         total = 0;
         localStorage.setItem("total", 0);
     }
-    document.getElementById("cart").innerHTML = output;
-    document.getElementById("total").innerHTML = "MKW " + total;
+    
+    if(document.getElementById("cart"))
+        document.getElementById("cart").innerHTML = output;
+    if(document.getElementById("total"))
+        document.getElementById("total").innerHTML = "MKW " + total;
 }
+
 function removeCart(index){
-    var items = cart.split("|");
+    var currentCart = localStorage.getItem("cart") || "";
+    var items = currentCart.split("|");
+    
+    if(items[items.length - 1] === "") {
+        items.pop();
+    }
+
     var price = items[index].split(",")[1];
-
     total -= Number(price);
+    
     items.splice(index, 1);
-    cart = items.join("|");
-
-    if(cart == ""){
+    
+    if(items.length > 0) {
+        cart = items.join("|") + "|";
+    } else {
+        cart = "";
         total = 0;
     }
+
     localStorage.setItem("cart", cart);
     localStorage.setItem("total", total);
+    
     showCart();
 }
 showCart();
+function checkoutOrder(){
+    const totalAmount = document.getElementById('total').innerText;
+
+    if (totalAmount === "0" || totalAmount ===""){
+        alert("Your shopping cart is empty");
+        return;
+    }
+    alert("System is processing payment for MKW" + totalAmount);
+    alert("Payment Successful! Your subscription order has been confirmed.");
+
+    localStorage.removeItem("cart");
+    localStorage.setItem("total", "0");
+    showCart();
+}
