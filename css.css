@@ -2,6 +2,7 @@
 body{
     background-color: rgb(122, 112, 112);
     padding-top: 70px;
+     font-family: Arial, sans-serif;
 }
 .navigation{
     display: flex;
@@ -10,50 +11,37 @@ body{
     flex-wrap: wrap;
     background-color: rgba(255, 255, 255, 0.05);
     padding: 15px 20px;
-    gap: 10px;
+    gap: 5px;
     position: fixed;
     top: 0;
-    width: 96%;
+    width: 100%;
     border: 2px solid black;
     backdrop-filter: blur(15px);
     box-shadow: 0 15px 35px rgba(0,0,0,0,5);
     z-index: 999;
-    font-size: 9px;
 }
 .navigation a{
+    text-align: center;
     color: black;
     background-color: #ffffff;
     padding: 8px 16px;
-    display: inline-block;
     margin: 5px;
     border-radius: 5px;
     text-decoration: wavy;
 }
 .navigation a:hover{
-    width: 180px;
+    width: 200px;
     color: skyblue;
 }
-.main{
-    margin-top: 80px;
+.carousel{
+    max-width: 900px;
+    margin-top: 70px;
+    margin-left: 18%;
 }
-.slide-show{
-    position: relative;
-    width: 100%;
-    height: 600px;
-    overflow: hidden;
-    z-index: 1;
-}
-.slide-show img{
-    width: 75%;
-    height: 500px;
+
+.carousel-item img{
+    height: 350px;
     object-fit: fill;
-    position: absolute;
-    display: none;
-    left: 50%;
-    transform: translateX(-50%);
-}
-.slideshow img:first-child{
-    display: block;
 }
 .popup-box{
     display: none;
@@ -80,12 +68,15 @@ body{
 }
 .aboutus1{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
     flex: 1;
     padding: 10px 10px 10px 10px;
     background-color: rgb(197, 184, 170);
     border-radius: 10px;
     margin-top: 10px;
+    overflow: hidden;
+    width: 90%;
 }
 .aboutus1 img{
     width: 100%;
@@ -93,26 +84,29 @@ body{
     object-fit: cover;
 }
 .btn{
+    display: inline-block;
     align-self: flex-start;
     border-radius: 5px;
     padding: 8px 16px;
     cursor: pointer;
     background-color: #ffffff;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
     text-decoration: none;
     color: #000000;
-    display: inline-block;
 }
 .btn:hover{
     opacity: 0.85;
     background-color: skyblue;
 }
-.special-offers button{
+.special-offers a{
+    display: inline-block;
       align-self: flex-start;
       padding: 8px 16px;
       cursor: pointer;
       background-color: #ffffff;
+      white-space: nowrap;
+      line-height: 1.2;
 }
 .special-offers button:hover{
     opacity: 0.85;
@@ -122,35 +116,37 @@ body{
     background-color: grey;
     border: 2px solid black;
     border-radius: 10px;
-    margin-top: 30px;
+    margin-top: 10px;
     padding: 10px;
 }
 /*Css for coffee selection*/
-.search-bar{
+.coffee-h1{
     margin-top: 60px;
+    font-weight: bold;
 }
 #search{
     width:300px;
     height: 30px;
 }
 .coffee{
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    display: flex;
+    flex-direction: row;
     gap: 10px;
     width: 100%;
 }
 .coffee1{
+    width: 95%;
     background-color: rgb(197, 184, 170);
     border-radius: 15px;
-    margin-top: 10px;
-    margin-left:5px ;
+    margin: 10px auto;
     align-items: center;
     padding: 10px 10px 10px 10px;
 }
 .coffee1 img{
     width: 100%;
-    height: 200px;
+    height: 150px;
     object-fit: contain;
+   
 }
 .coffee1 button{
     align-self: flex-start;
@@ -188,7 +184,7 @@ body{
 }
 /*Contact page*/
 .upcoming-events{
-    margin-top: 50px;
+    margin-top: 20px;
 }
 .f-body{
     display: flex;
@@ -243,7 +239,7 @@ body{
 .upcoming-events {
   background: #ffffff;
   color: black;
-  padding: 3px ;
+  padding: 1px ;
   text-align: center;
   border-radius: 30px;
 }
@@ -263,7 +259,8 @@ body{
     box-sizing: border-box;
 }
 .event-card{
-    flex-direction: row;
+    display: flex;
+    flex-direction: column;
     flex: 1;
     padding: 10px 10px 10px 10px;
     background-color: rgb(197, 184, 170);
@@ -288,7 +285,7 @@ body{
 .sub-card{
     flex: 1;
     background-color: #ffffff;
-    border-radius: 2px solid #4a3525;
+    border-radius: 2px;
     padding: 30px;
     text-align: left;
     transition: transform 0.3s;
@@ -320,3 +317,4 @@ body{
 .subscription{
     text-align: center;
 }
+

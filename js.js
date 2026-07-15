@@ -17,19 +17,6 @@ function SignUp(){
     alert("Thank you for signing up: ");
     closePopup();
 }
-// This one is slideshow function on index
-let slides = document.querySelectorAll(".slide-show img");
- 
-if (slides.length > 0){
-    let i = 0;
-    slides[0].style.display = "block";
-
-    setInterval(() => {
-        slides[i].style.display = "none";
-        i = (i + 1) % slides.length;
-        slides[i].style.display = "block";
-    }, 3000);
-}
 // This one is for coffee selection used for search bar 
 function findCoffee() {
     let search = document.getElementById("search").value.toLowerCase();
