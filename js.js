@@ -30,92 +30,121 @@ function findCoffee() {
         }
     }
 }
-//Adding to cart js, For storage
+// Adding to cart JS, for storage
 var cart = localStorage.getItem("cart") || "";
 var total = Number(localStorage.getItem("total")) || 0;
 
-function addCart(name, price){
+function addCart(name, price) {
     console.log("Button clicked", name, price);
-    
-    // Add the name of item and price
+    var textNotice = document.getElementById("textNotice");
+
+    // Add item to cart
     cart += name + "," + price + "|";
-    total += price;
+    total += Number(price);
 
     localStorage.setItem("cart", cart);
     localStorage.setItem("total", total);
-    alert(name + "has been aaded to cart");
-    
-    setTimeout(function(){
-        textNotice.style.display = "none";
-    },1500);
-    
+    alert(name + " has been added to cart.");
+
+    // for notification
+    if (textNotice) {
+        textNotice.style.display = "block";
+        textNotice.innerHTML = name + " added to cart.";
+        
+        setTimeout(function () {
+            textNotice.style.display = "none";
+        }, 1500);
+    }
     showCart();
 }
-
-function showCart(){
-    var currentCart = localStorage.getItem("cart") || ""; 
-    var items = currentCart.split("|");
-    var output = "";
-
-    if(items[items.length - 1] === "") {
-        items.pop();
-    }
-
-    for(var i = 0; i < items.length; i++){
-        var item = items[i].split(",");
-        output += item[0] + " - MKW " + item[1];
-        output += " <button onclick='removeCart(" + i + ")'>Remove</button><br>";
-    }
-
-    if(output == "" || items.length === 0){
-        output = "Cart is empty";
-        total = 0;
-        localStorage.setItem("total", 0);
-    }
-    
-    if(document.getElementById("cart"))
-        document.getElementById("cart").innerHTML = output;
-    if(document.getElementById("total"))
-        document.getElementById("total").innerHTML = "MKW " + total;
-}
-
-function removeCart(index){
+function showCart() {
     var currentCart = localStorage.getItem("cart") || "";
     var items = currentCart.split("|");
-    
-    if(items[items.length - 1] === "") {
+
+    if (items.length > 0 && items[items.length - 1] === "") {
+        items.pop();
+    }
+    var output = "";
+    var currentTotal = 0;
+
+    for (var i = 0; i < items.length; i++) {
+        if (items[i].trim() === "") continue;
+
+        var itemDetails = items[i].split(",");
+        var itemName = itemDetails[0];
+        var itemPrice = Number(itemDetails[1]);
+        currentTotal += itemPrice;
+
+        output += itemName + " - MKW " + itemPrice;
+        output +=
+        "<button onclick='removeCart(" + i + ")'>Remove</button><br>";
+    }
+
+    if (items.length === 0) {
+        output = "Cart is empty";
+    }
+    cart = items.length > 0 ? items.join("|") + "|" : "";
+    total = currentTotal;
+
+    localStorage.setItem("cart", cart);
+    localStorage.setItem("total", total);
+
+    var cartDiv = document.getElementById("cart");
+    var totalSpan = document.getElementById("total");
+
+    if (cartDiv) {
+        cartDiv.innerHTML = output;
+    }
+    if (totalSpan) {
+        totalSpan.innerHTML = "MKW " + currentTotal;
+    }
+}
+
+function removeCart(index) {
+    var currentCart = localStorage.getItem("cart") || "";
+    var items = currentCart.split("|");
+
+    if (items.length > 0 && items[items.length - 1] === "") {
         items.pop();
     }
 
-    var price = items[index].split(",")[1];
-    total -= Number(price);
-    
+    // Remove the selected item from the cart individually
     items.splice(index, 1);
-    
-    if(items.length > 0) {
-        cart = items.join("|") + "|";
-    } else {
-        cart = "";
-        total = 0;
+    cart = "";
+    total = 0;
+
+    for (var i = 0; i < items.length; i++) {
+        if (items[i].trim() === "") continue;
+
+        cart += items[i] + "|";
+        var itemDetails = items[i].split(",");
+        total += Number(itemDetails[1]);
     }
 
     localStorage.setItem("cart", cart);
     localStorage.setItem("total", total);
-    
     showCart();
 }
-showCart();
-function checkoutOrder(){
-    const totalAmount = document.getElementById('total').innerText;
 
-    if (totalAmount === "0" || totalAmount ===""){
-        alert("Your shopping cart is empty");
+function checkoutOrder() {
+    var currentTotal = Number(localStorage.getItem("total")) || 0;
+
+    if (currentTotal === 0) {
+        alert("Your shopping cart is empty.");
         return;
     }
-    alert("System is processing payment for MKW" + totalAmount);
-    alert("Payment Successful! Your subscription order has been confirmed.");
+    alert("System is processing payment for MKW " + currentTotal);
+    alert("Payment Successful! Your order has been confirmed.");
 
+    // Clear the cart after payment
     localStorage.removeItem("cart");
     localStorage.setItem("total", "0");
+
+    cart = "";
+    total = 0;
     showCart();
 }
+// Display cart when page loads
+window.onload = function () {
+    showCart();
+};
