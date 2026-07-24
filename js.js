@@ -108,7 +108,7 @@ function removeCart(index) {
         items.pop();
     }
 
-    // Remove the selected item from the cart individually
+    // Remove the selected item from the cart individually item by item
     items.splice(index, 1);
     cart = "";
     total = 0;
